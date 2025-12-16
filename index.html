@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Федерация Отелло России</title>
+
+    <style>
+        :root{
+            --green:#0b3d2e;
+            --black:#000;
+            --white:#fff;
+            --muted:#f4f4f4;
+            --gray:#666;
+            --light-gray:#eee;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            margin:0;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:var(--muted);
+            color:#222;
+            scroll-behavior:smooth;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header{
+            background:linear-gradient(135deg,var(--black),var(--green));
+            color:var(--white);
+            padding:2.2rem 1rem;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:0.5rem;
+            text-align:center;
+            position: relative;
+        }
+        header .logo{
+            display:block;
+            max-width:120px;
+            height:auto;
+            margin:0 auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        header h1{
+            margin:0;
+            font-size:1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        header p{
+            margin:0;
+            color:rgba(255,255,255,0.9);
+            max-width: 500px;
+        }
+
+        /* NAV */
+        nav{
+            background:var(--black);
+            position:sticky;
+            top:0;
+            z-index:1200;
+            box-shadow:0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-inner{
+            max-width:1200px;
+            margin:0 auto;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0.2rem 1rem;
+        }
+        .menu-toggle{
+            display:none;
+            background:transparent;
+            border:0;
+            color:var(--white);
+            font-size:1.3rem;
+            cursor:pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .menu-toggle:hover,
+        .menu-toggle:focus{
+            background: rgba(255,255,255,0.1);
+            outline: none;
+        }
+        nav ul{
+            list-style:none;
+            margin:0;
+            padding:0;
+            display:flex;
+            gap:0;
+        }
+        nav > .nav-inner > ul > li{
+            position:relative;
+        }
+        nav a{
+            display:block;
+            padding:0.9rem 1rem;
+            color:var(--white);
+            text-decoration:none;
+            font-weight:600;
+            transition: var(--transition);
+            position: relative;
+        }
+        nav a:hover,
+        nav a:focus{
+            background:var(--green);
+            color:#fff;
+        }
+
+        /* Dropdown */
+        nav ul ul{
+            display:none;
+            position:absolute;
+            top:100%;
+            left:0;
+            background:var(--green);
+            min-width:220px;
+            border-radius:6px;
+            overflow:hidden;
+            box-shadow:0 8px 18px rgba(0,0,0,0.25);
+            z-index:1300;
+            opacity:0;
+            transform:translateY(10px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        nav ul ul li a{
+            padding:0.7rem 1rem;
+            color:var(--white);
+            white-space:nowrap;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+        }
+        nav ul ul li:last-child a{
+            border-bottom: none;
+        }
+        nav ul ul li a:hover{
+            background: #0a4d3a;
+            padding-left: 1.2rem;
+        }
+        nav ul li:hover > ul,
+        nav ul li:focus-within > ul{
+            display:block;
+            opacity:1;
+            transform:translateY(0);
+        }
+        nav a:focus{
+            outline:2px solid rgba(255,255,255,0.15);
+            outline-offset:2px;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width:900px){
+            .menu-toggle{
+                display:block;
+            }
+            nav ul{
+                display:none;
+                flex-direction:column;
+                width:100%;
+                background:var(--black);
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+                margin-top: 0.5rem;
+            }
+            nav.open ul{
+                display:flex;
+            }
+            nav ul ul{
+                position:static;
+                display:none;
+                background:rgba(0,0,0,0.1);
+                margin-left: 1rem;
+                border-radius: 4px;
+                box-shadow:none;
+                opacity:1;
+                transform:none;
+                transition:none;
+            }
+            nav li.submenu-open > ul{
+                display:flex;
+                flex-direction:column;
+            }
+            nav > .nav-inner{
+                flex-direction:row;
+                align-items:center;
+            }
+            nav a{
+                padding:0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            nav ul ul li a{
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                color: var(--white);
+            }
+            nav ul ul li a:hover{
+                background: rgba(255,255,255,0.1);
+            }
+        }
+
+        @media (min-width: 901px){
+            nav a::after{
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: var(--white);
+                transition: var(--transition);
+                transform: translateX(-50%);
+            }
+            nav a:hover::after,
+            nav a:focus::after{
+                width: 70%;
+            }
+        }
+
+        /* MAIN */
+        main{
+            max-width:1200px;
+            margin:1.5rem auto;
+            padding:0 1rem;
+        }
+        section{
+            background:var(--white);
+            padding:1.4rem;
+            border-radius:10px;
+            margin:1.6rem 0;
+            box-shadow:0 6px 18px rgba(0,0,0,0.06);
+            transition: var(--transition);
+        }
+        section:hover{
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        h2{
+            margin-top:0;
+            border-bottom:2px solid var(--light-gray);
+            padding-bottom:0.5rem;
+            color: var(--green);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* News grid */
+        .news-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+            gap:1.2rem;
+        }
+        .news-item{
+            border-radius:8px;
+            overflow:hidden;
+            background:#fff;
+            box-shadow:0 4px 10px rgba(0,0,0,0.06);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .news-item:hover{
+            transform:translateY(-6px);
+            box-shadow:0 8px 20px rgba(0,0,0,0.12);
+        }
+        .news-item img{
+            width:100%;
+            height:150px;
+            object-fit:cover;
+            display:block;
+            transition: var(--transition);
+        }
+        .news-item:hover img{
+            transform: scale(1.05);
+        }
+        .news-item .body{
+            padding:0.7rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .news-item h3{
+            margin:0 0 0.4rem;
+            color:var(--green);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .news-item p{
+            margin:0;
+            color:#444;
+            font-size:.95rem;
+            line-height: 1.5;
+        }
+
+        /* Карточки игроков */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .player-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .player-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .rank-badge {
+            background: var(--green);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        .player-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 2px solid var(--light-gray);
+        }
+        .player-info h3 {
+            margin: 0 0 0.2rem;
+            color: var(--green);
+            font-size: 1.05rem;
+        }
+        .player-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* FAQ */
+        .faq-container {
+            margin-top: 1rem;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 0.5rem;
+        }
+        .faq-toggle {
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            padding: 0.8rem;
+            font-size: 1.05rem;
+            color: var(--green);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+        .faq-toggle:hover {
+            background: rgba(11, 61, 46, 0.05);
+        }
+        .faq-toggle .icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .faq-content {
+            padding: 0 0.8rem 0.8rem;
+            display: none;
+            color: #444;
+            line-height: 1.6;
+        }
+        .faq-item.active .faq-toggle .icon {
+            transform: rotate(45deg);
+        }
+        .faq-item.active .faq-content {
+            display: block;
+        }
+
+        /* Турниры */
+        .tournaments-carousel {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem 0 1rem;
+            scrollbar-width: thin;
+            margin-top: 1rem;
+        }
+        .tournament-card {
+            min-width: 280px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            padding: 1rem;
+            position: relative;
+        }
+        .date-badge {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: var(--green);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .date-badge .day {
+            font-size: 1.2rem;
+        }
+        .date-badge .month {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .tournament-info h3 {
+            margin: 0 0 0.5rem;
+            color: var(--green);
+            font-size: 1.1rem;
+        }
+        .tournament-info p {
+            margin: 0.3rem 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        .btn-sm {
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: var(--transition);
+        }
+        .btn-sm:hover {
+            background: #0a4d3a;
+            transform: translateY(-1px);
+        }
+
+        /* Цитата */
+        .quote-block {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 4px solid var(--green);
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+        .quote-block::before {
+            content: "“";
+            font-size: 4rem;
+            color: rgba(11, 61, 46, 0.1);
+            position: absolute;
+            top: 0.2rem;
+            right: 1rem;
+            font-family: Georgia, serif;
+        }
+        .quote-block p {
+            margin: 0 0 1rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+        .quote-block footer {
+            margin: 0;
+            font-weight: 600;
+            color: var(--green);
+            font-size: 0.95rem;
+        }
+
+        /* Таблица рейтинга */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+        .table-container {
+            overflow: hidden;
+            transition: max-height 0.45s ease;
+        }
+        .tournament-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .tournament-table th {
+            background: var(--green);
+            color: #fff;
+            padding: 0.6rem;
+            text-align: left;
+        }
+        .tournament-table td {
+            padding: 0.6rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        .tournament-table tbody tr:hover {
+            background: rgba(11, 61, 46, 0.03);
+        }
+        .tournament-table td:first-child {
+            font-weight: bold;
+            color: var(--green);
+        }
+        .hidden-row {
+            display: none;
+        }
+        .toggle-btn {
+            margin-top: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            user-select: none;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        .toggle-btn svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.35s ease;
+        }
+        .toggle-btn.expanded svg {
+            transform: rotate(180deg);
+        }
+
+        /* Блоки "Онлайн-ресурсы" */
+        .resource-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease;
+        }
+        .resource-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .resource-img {
+            width: 200px;
+            flex-shrink: 0;
+            height: 140px;
+            object-fit: cover;
+        }
+        .resource-content {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .resource-content h3 {
+            margin: 0 0 0.5rem;
+            color: var(--green);
+            font-size: 1.1rem;
+        }
+        .resource-content p {
+            margin: 0 0 1rem;
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .btn-link {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            width: fit-content;
+            transition: var(--transition);
+        }
+        .btn-link:hover {
+            background: #0a4d3a;
+            transform: translateY(-1px);
+        }
+        @media (max-width: 768px) {
+            .resource-item {
+                flex-direction: column;
+            }
+            .resource-img {
+                width: 100%;
+                height: 160px;
+            }
+        }
+
+        /* Footer */
+        footer{
+            background:var(--black);
+            color:var(--white);
+            padding:1.2rem;
+            text-align:center;
+            border-top:4px solid var(--green);
+            margin-top: 2rem;
+        }
+        footer p{
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* Scroll to top button */
+        #toTop{
+            position:fixed;
+            right:20px;
+            bottom:20px;
+            background:var(--green);
+            color:#fff;
+            border:none;
+            padding:0.6rem 0.8rem;
+            font-size:1.2rem;
+            border-radius:50%;
+            cursor:pointer;
+            display:none;
+            box-shadow:0 4px 8px rgba(0,0,0,0.3);
+            transition: var(--transition);
+            z-index:1500;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #toTop.show{
+            display:flex;
+            opacity:0.9;
+        }
+        #toTop:hover{
+            opacity:1;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+        #toTop:focus{
+            outline: 2px solid rgba(255,255,255,0.5);
+            outline-offset: 2px;
+        }
+
+        /* Accessibility improvements */
+        .sr-only{
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Responsive header text */
+        @media (max-width: 600px){
+            header h1{
+                font-size: 1.6rem;
+            }
+            header p{
+                font-size: 0.9rem;
+            }
+            main{
+                padding: 0 0.5rem;
+            }
+            .news-item h3{
+                font-size: 1.05rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <img src="images/logo.png" alt="Логотип Федерации Отелло" class="logo">
+    <h1>Федерация Отелло России</h1>
+    <p>Официальный сайт сообщества игроков Отелло в России</p>
+</header>
+
+<nav id="mainNav">
+    <div class="nav-inner">
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Открыть меню">☰</button>
+        <ul>
+            <li>
+                <a href="#news" aria-haspopup="true" aria-expanded="false">Новости</a>
+                <ul>
+                    <li><a href="#championship">Чемпионат России</a></li>
+                    <li><a href="#tournaments">Российские турниры</a></li>
+                    <li><a href="#world">Европа и Мир</a></li>
+                    <li><a href="#online-tournaments">Онлайн турниры</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#about" aria-haspopup="true" aria-expanded="false">О федерации</a>
+                <ul>
+                    <li><a href="#charter">Устав</a></li>
+                    <li><a href="#leaders">Руководство</a></li>
+                    <li><a href="#players">Игроки</a></li>
+                    <li><a href="#ratings">Рейтинги</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#othello" aria-haspopup="true" aria-expanded="false">Игра Отелло</a>
+                <ul>
+                    <li><a href="#rules">Правила</a></li>
+                    <li><a href="#principles">Игровые принципы</a></li>
+                    <li><a href="#books">Книги и пособия</a></li>
+                    <li><a href="#puzzles">Задачи</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#online" aria-haspopup="true" aria-expanded="false">Отелло в Интернете</a>
+                <ul>
+                    <li><a href="#programs">Игровые программы</a></li>
+                    <li><a href="#sites">Игровые сайты</a></li>
+                    <li><a href="#databases">Базы данных</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- Новости -->
+    <section id="news">
+        <h2>Новости</h2>
+        <div class="news-grid">
+            <article class="news-item">
+                <img src="images/news1.jpg" alt="Чемпионат России">
+                <div class="body">
+                    <h3>Чемпионат России 2025</h3>
+                    <p>Итоги прошедшего турнира: лучшие партии, фото и интервью победителей.</p>
+                </div>
+            </article>
+            <article class="news-item">
+                <img src="images/news2.jpg" alt="Международный турнир">
+                <div class="body">
+                    <h3>Международный турнир</h3>
+                    <p>Российская сборная успешно выступила на европейской арене.</p>
+                </div>
+            </article>
+            <article class="news-item">
+                <img src="images/news3.jpg" alt="Онлайн лига">
+                <div class="body">
+                    <h3>Запуск онлайн-лиги</h3>
+                    <p>Ежемесячные турниры на платформе — участвуй из любой точки страны.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- О федерации (упрощённый блок, можешь расширить своим содержимым) -->
+    <section id="about">
+        <h2>О федерации</h2>
+        <p>Федерация Отелло России объединяет игроков, организаторов и энтузиастов игры по всей стране.</p>
+    </section>
+
+    <!-- Карточки рейтинга игроков России (внутренний рейтинг) -->
+    <section id="ratings">
+        <h2>Рейтинги игроков</h2>
+        <div class="grid-cards">
+            <article class="player-card">
+                <div class="rank-badge">1</div>
+                <img src="images/player1.jpg" alt="Иван Петров" class="player-photo">
+                <div class="player-info">
+                    <h3>Иван Петров</h3>
+                    <p class="rating">Рейтинг: <strong>2450</strong></p>
+                    <p class="wins">Побед: 87% (за год)</p>
+                </div>
+            </article>
+            <article class="player-card">
+                <div class="rank-badge">2</div>
+                <img src="images/player2.jpg" alt="Анна Сидорова" class="player-photo">
+                <div class="player-info">
+                    <h3>Анна Сидорова</h3>
+                    <p class="rating">Рейтинг: <strong>2380</strong></p>
+                    <p class="wins">Побед: 82%</p>
+                </div>
+            </article>
+            <article class="player-card">
+                <div class="rank-badge">3</div>
+                <img src="images/player3.jpg" alt="Дмитрий Козлов" class="player-photo">
+                <div class="player-info">
+                    <h3>Дмитрий Козлов</h3>
+                    <p class="rating">Рейтинг: <strong>2310</strong></p>
+                    <p class="wins">Побед: 79%</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Правила Отелло -->
+    <section id="rules">
+        <h2>Правила Отелло</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-toggle">
+                    Как начинается игра?
+                    <span class="icon">+</span>
+                </button>
+                <div class="faq-content">
+                    <p>Игра начинается с четырёх фишек в центре доски: две белые и две чёрные, расположенные по диагонали. Первый ход делает чёрный игрок.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-toggle">
+                    Как захватывать фишки?
+                    <span class="icon">+</span>
+                </button>
+                <div class="faq-content">
+                    <p>Фишка захватывается, когда она оказывается зажата между двумя фишками по вертикали, горизонтали или диагонали. Все захваченные фишки переворачиваются.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-toggle">
+                    Что такое пас?
+                    <span class="icon">+</span>
+                </button>
+                <div class="faq-content">
+                    <p>Если игрок не может сделать ход, он пасует, и ход переходит к сопернику. Два паса подряд означают конец игры.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Игровые принципы -->
+    <section id="principles">
+        <h2>Игровые принципы</h2>
+        <blockquote class="quote-block">
+            <p>«Главное в Отелло — не количество фишек, а контроль над углами и краями. Угол — это неприкосновенная крепость.»</p>
+            <footer>— Григорий Федоров, чемпион Европы 2018</footer>
+        </blockquote>
+        <p>Успешная стратегия в Отелло основывается на контроле углов, минимизации ходов противника и правильной оценке позиции. Избегайте раннего захвата центра, чтобы не ослабить позицию в эндшпиле.</p>
+    </section>
+
+    <!-- Предстоящие турниры -->
+    <section id="tournaments">
+        <h2>Предстоящие турниры</h2>
+        <div class="tournaments-carousel">
+            <article class="tournament-card">
+                <div class="date-badge">
+                    <span class="day">15</span>
+                    <span class="month">Апр</span>
+                </div>
+                <div class="tournament-info">
+                    <h3>Московский турнир‑2025</h3>
+                    <p><strong>Место:</strong> Москва, Центр шахмат</p>
+                    <p><strong>Участников:</strong> до 32</p>
+                    <button class="btn-sm">Подробнее</button>
+                </div>
+            </article>
+            <article class="tournament-card">
+                <div class="date-badge">
+                    <span class="day">22</span>
+                    <span class="month">Апр</span>
+                </div>
+                <div class="tournament-info">
+                    <h3>Онлайн‑чемпионат</h3>
+                    <p><strong>Платформа:</strong> OthelloHub</p>
+                    <p><strong>Награды:</strong> дипломы и призы</p>
+                    <button class="btn-sm">Зарегистрироваться</button>
+                </div>
+            </article>
+            <article class="tournament-card">
+                <div class="date-badge">
+                    <span class="day">5</span>
+                    <span class="month">Май</span>
+                </div>
+                <div class="tournament-info">
+                    <h3>Санкт‑Петербургский открытый</h3>
+                    <p><strong>Место:</strong> СПб, Парк культуры</p>
+                    <p><strong>Формат:</strong> швейцарская система</p>
+                    <button class="btn-sm">Подробнее</button>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Мировой рейтинг российских игроков -->
+    <section id="championship">
+        <h2>Мировой рейтинг российских игроков на 04.12.2025</h2>
+
+        <div class="table-responsive">
+            <div class="table-container">
+                <table class="tournament-table">
+                    <thead>
+                    <tr>
+                        <th>Место</th>
+                        <th>Игрок</th>
+                        <th>Очки</th>
+                        <th>+/-</th>
+                    </tr>
+                    </thead>
+                    <tbody id="player-body">
+                    <tr><td>1</td><td>Ivan GUTOROV</td><td>2238</td><td>[+/-84, 135]</td></tr>
+                    <tr><td>2</td><td>Dmitry ATAMANOV</td><td>2226</td><td>[+/-77, 151]</td></tr>
+                    <tr><td>3</td><td>Alexandr MELNIKOV</td><td>2082</td><td>[+/-85, 73]</td></tr>
+                    <tr><td>4</td><td>Alexandr SAMCHENKO</td><td>2012</td><td>[+/-78, 101]</td></tr>
+                    <tr><td>5</td><td>Victoria LI</td><td>1995</td><td>[+/-152, 32]</td></tr>
+                    <tr><td>6</td><td>Andrey KOMIN</td><td>1973</td><td>[+/-162, 24]</td></tr>
+                    <tr><td>7</td><td>Alexey DUBOV</td><td>1967</td><td>[+/-77, 104]</td></tr>
+                    <tr><td>8</td><td>Vyacheslav KOBZEV</td><td>1816</td><td>[+/-67, 135]</td></tr>
+                    <tr><td>9</td><td>Alexey PAVLISHIN</td><td>1778</td><td>[+/-104, 52]</td></tr>
+                    <tr><td>10</td><td>Aleksei ZHELEZOV</td><td>1778</td><td>[+/-133, 40]</td></tr>
+
+                    <tr><td>11</td><td>Anton SANOTSKY</td><td>1743</td><td>[+/-80, 88]</td></tr>
+                    <tr><td>12</td><td>Viktor GNEZDILOV</td><td>1719</td><td>[+/-146, 25]</td></tr>
+                    <tr><td>13</td><td>Dmitry GRISHIN</td><td>1717</td><td>[+/-82, 81]</td></tr>
+                    <tr><td>14</td><td>Andrey PEREL'MAN</td><td>1709</td><td>[+/-65, 136]</td></tr>
+                    <tr><td>15</td><td>Elena AVERINA</td><td>1674</td><td>[+/-72, 112]</td></tr>
+                    <tr><td>16</td><td>Eugene KHABIBI</td><td>1656</td><td>[+/-168, 20]</td></tr>
+                    <tr><td>17</td><td>Yuri SENNOV</td><td>1620</td><td>[+/-93, 69]</td></tr>
+                    <tr><td>18</td><td>Alexander PODKOPAEV</td><td>1576</td><td>[+/-129, 40]</td></tr>
+                    <tr><td>19</td><td>Denis AVERKOV</td><td>1549</td><td>[+/-88, 83]</td></tr>
+                    <tr><td>20</td><td>Maksim DORODNYKH</td><td>1505</td><td>[+/-130, 38]</td></tr>
+                    <tr><td>21</td><td>Elena SARASKINA</td><td>1481</td><td>[+/-114, 53]</td></tr>
+                    <tr><td>22</td><td>Tatyana KHANDZHYAN</td><td>1377</td><td>[+/-104, 74]</td></tr>
+                    <tr><td>23</td><td>Elena BOGDANOVA</td><td>1368</td><td>[+/-107, 77]</td></tr>
+                    <tr><td>24</td><td>Maksim ATAMANOV</td><td>747</td><td>[+/-184, 19]</td></tr>
+                    <tr><td>25</td><td>Aleksandr KHAVROV</td><td>696</td><td>[+/-180, 18]</td></tr>
+                    <tr><td>26</td><td>Georgiy OBLETSOV</td><td>691</td><td>[+/-196, 18]</td></tr>
+                    <tr><td>27</td><td>Viktoria KUPRIYANOVA</td><td>410</td><td>[+/-193, 16]</td></tr>
+                    <tr><td>28</td><td>Karina ABDULJALILOVA</td><td>370</td><td>[+/-193, 15]</td></tr>
+                    <tr><td>29</td><td>Anton FAIRUZOV</td><td>356</td><td>[+/-197, 16]</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="toggle-btn" id="toggleBtn">
+                <span>Показать больше</span>
+                <svg viewBox="0 0 24 24">
+                    <path d="M7 10l5 5 5-5"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+
+        <script>
+            (function () {
+                const tbody = document.getElementById("player-body");
+                const rows = Array.from(tbody.querySelectorAll("tr"));
+                const toggleBtn = document.getElementById("toggleBtn");
+                const container = document.querySelector("#championship .table-container");
+
+                const VISIBLE_ROWS = 10;
+
+                // Скрываем строки, кроме первых VISIBLE_ROWS
+                rows.forEach((row, idx) => {
+                    if (idx >= VISIBLE_ROWS) row.classList.add("hidden-row");
+                });
+
+                function computeInitialHeight() {
+                    let height = 0;
+                    rows.slice(0, VISIBLE_ROWS).forEach(r => {
+                        height += r.offsetHeight;
+                    });
+                    return height + 40;
+                }
+
+                container.style.maxHeight = computeInitialHeight() + "px";
+
+                let expanded = false;
+
+                toggleBtn.addEventListener("click", () => {
+                    expanded = !expanded;
+
+                    if (expanded) {
+                        rows.forEach(r => r.classList.remove("hidden-row"));
+                        container.style.maxHeight = container.scrollHeight + "px";
+                        toggleBtn.classList.add("expanded");
+                        toggleBtn.querySelector("span").textContent = "Свернуть";
+                    } else {
+                        rows.forEach((row, idx) => {
+                            if (idx >= VISIBLE_ROWS) row.classList.add("hidden-row");
+                        });
+                        container.style.maxHeight = computeInitialHeight() + "px";
+                        toggleBtn.classList.remove("expanded");
+                        toggleBtn.querySelector("span").textContent = "Показать больше";
+                    }
+                });
+            })();
+        </script>
+    </section>
+
+    <!-- Онлайн‑ресурсы -->
+    <section id="online">
+        <h2>Отелло в Интернете</h2>
+        <p>Лучшие платформы и программы для игры и анализа.</p>
+        <p>&nbsp;</p>
+
+        <article class="resource-item">
+            <img src="images/ftd.jpg" alt="Flip the Disc" class="resource-img">
+            <div class="resource-content">
+                <h3>Flip the Disc</h3>
+                <p>Официальная платформа для проведения и просмотра турниров по всему миру. Поддерживает анализ партий в режиме реального времени.</p>
+                <a href="https://flipthedisc.com" target="_blank" class="btn-link">Перейти на сайт</a>
+            </div>
+        </article>
+
+        <article class="resource-item">
+            <img src="images/oq.jpg" alt="Othello Quest" class="resource-img">
+            <div class="resource-content">
+                <h3>Othello Quest</h3>
+                <p>Одна из самых популярных программ для онлайн‑игры. Есть обучающий раздел и мобильные приложения.</p>
+                <a href="https://play.google.com/store/apps/details?id=fm.wars.reversi" target="_blank" class="btn-link">Скачать с Google Play</a>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 Федерация Отелло России. Все права защищены.</p>
+</footer>
+
+<button id="toTop" aria-label="Наверх">↑</button>
+
+<script>
+    (function(){
+        const nav = document.getElementById('mainNav');
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = nav.querySelectorAll('a');
+        const dropdowns = nav.querySelectorAll('li > ul');
+        const toTop = document.getElementById('toTop');
+
+        // Mobile menu toggle
+        menuToggle.addEventListener('click', ()=>{
+            const isOpen = nav.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', isOpen);
+            menuToggle.innerHTML = isOpen ? '✕' : '☰';
+
+            if (isOpen) {
+                dropdowns.forEach(ul => {
+                    ul.style.display = 'none';
+                });
+            }
+        });
+
+        // Dropdowns on mobile
+        const dropdownLinks = nav.querySelectorAll('a[aria-haspopup="true"]');
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.matchMedia('(min-width: 901px)').matches) {
+                    return;
+                }
+                e.preventDefault();
+                const parentLi = link.closest('li');
+                const isOpen = parentLi.classList.toggle('submenu-open');
+                link.setAttribute('aria-expanded', isOpen);
+            });
+        });
+
+        // Close mobile menu on link click (if no submenu)
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const parentLi = link.closest('li');
+                const hasSubmenu = parentLi && parentLi.querySelector('ul');
+
+                if (window.matchMedia('(max-width:900px)').matches && hasSubmenu) {
+                    e.preventDefault();
+
+                    document.querySelectorAll('#mainNav li.submenu-open').forEach(li => {
+                        if (li !== parentLi) {
+                            li.classList.remove('submenu-open');
+                            const a = li.querySelector('a[aria-haspopup="true"]');
+                            if (a) a.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+
+                    parentLi.classList.toggle('submenu-open');
+                    link.setAttribute(
+                        'aria-expanded',
+                        parentLi.classList.contains('submenu-open')
+                    );
+                } else if (window.matchMedia('(max-width:900px)').matches) {
+                    nav.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    menuToggle.innerHTML = '☰';
+
+                    document.querySelectorAll('#mainNav li.submenu-open').forEach(li => {
+                        li.classList.remove('submenu-open');
+                        const a = li.querySelector('a[aria-haspopup="true"]');
+                        if (a) a.setAttribute('aria-expanded', 'false');
+                    });
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const isClickInsideNav = nav.contains(e.target) || e.target === menuToggle;
+            if (!isClickInsideNav) {
+                nav.classList.remove('open');
+                document.querySelectorAll('#mainNav li.submenu-open').forEach(li => {
+                    li.classList.remove('submenu-open');
+                    const a = li.querySelector('a[aria-haspopup="true"]');
+                    if (a) a.setAttribute('aria-expanded', 'false');
+                });
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.innerHTML = '☰';
+            }
+        });
+
+        // Close menu on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900) {
+                nav.classList.remove('open');
+                document.querySelectorAll('#mainNav li.submenu-open').forEach(li => {
+                    li.classList.remove('submenu-open');
+                    const a = li.querySelector('a[aria-haspopup="true"]');
+                    if (a) a.setAttribute('aria-expanded', 'false');
+                });
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.innerHTML = '☰';
+            }
+        });
+
+        // Scroll to top button
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                toTop.classList.add('show');
+            } else {
+                toTop.classList.remove('show');
+            }
+        });
+        toTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // FAQ toggles
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const btn = item.querySelector('.faq-toggle');
+            btn.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    })();
+</script>
+</body>
+</html>
