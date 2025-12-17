@@ -243,6 +243,9 @@
         }
         section:hover{
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+			
+			
+			
         }
         h2{
             margin-top:0;
@@ -254,6 +257,71 @@
         }
 
         /* News grid */
+		#online .resources-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;              /* расстояние между карточками */
+}
+
+#online .resource-item {
+    flex: 1 1 calc(50% - 20px); /* две карточки в строку */
+    box-sizing: border-box;
+}
+
+/* На узких экранах — по одной в ряд (чтобы не ломалось на телефоне) */
+@media (max-width: 768px) {
+    #online .resource-item {
+        flex: 1 1 100%;
+    }
+}
+		
+		.about-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.about-logo img {
+    max-width: 160px;
+    height: auto;
+    display: block;
+}
+
+.about-content h2 {
+    margin-top: 0;
+}
+
+.about-intro {
+    font-weight: 500;
+}
+
+.about-goal {
+    margin-top: 10px;
+}
+
+.about-list {
+    margin-top: 15px;
+    padding-left: 20px;
+}
+
+.about-list li {
+    margin-bottom: 8px;
+}
+
+/* Адаптив для телефонов */
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .about-logo img {
+        max-width: 120px;
+    }
+}
+
+		
         .news-grid{
             display:grid;
             grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -774,11 +842,51 @@
     </section>
 
     <!-- О федерации (упрощённый блок, можешь расширить своим содержимым) -->
-    <section id="about">
-        <h2>О федерации</h2>
-        <p>Федерация Отелло России объединяет игроков, организаторов и энтузиастов игры по всей стране.</p>
-    </section>
+    <section id="about" class="about-section">
+    <div class="about-logo">
+        <img src="images/logo2.png" alt="Логотип Федерации Отелло России">
+    </div>
 
+    <div class="about-content">
+        <h2>О Федерации</h2>
+
+      <p class="about-intro">
+    Федерация Отелло России объединяет игроков, организаторов и энтузиастов игры по всей стране.
+    Связаться с Федерацией: <a href="mailto:zalx22@gmail.com">zalx22@gmail.com</a>.
+</p>
+
+        <p class="about-goal">
+            Основная цель Федерации — развитие игры Отелло в России и представление интересов её членов как внутри страны, так и за рубежом.
+        </p>
+
+        <h3>Основные задачи</h3>
+        <ul class="about-list">
+            <li>
+                Содействие развитию и популяризации игры Отелло в России, разработка и реализация программ,
+                способствующих её роли во всестороннем и гармоничном развитии личности.
+            </li>
+            <li>
+                Привлечение к сотрудничеству предприятий, учреждений, федераций и отдельных лиц как в России, так и за рубежом.
+            </li>
+            <li>
+                Создание и развитие материально‑технической базы, поддержка спортивных клубов, производство и приобретение
+                инвентаря, оборудования и другой продукции, необходимой для занятий Отелло.
+            </li>
+            <li>
+                Организация и проведение чемпионатов, кубков и первенств России, а также международных и внутрироссийских
+                соревнований по всем разновидностям игры Отелло.
+            </li>
+            <li>
+                Укрепление позиций российских отеллистов на международной арене, развитие сотрудничества с национальными
+                и международными организациями, включая World Othello Federation.
+            </li>
+            <li>
+                Подготовка спортсменов высокого класса, формирование сборных команд России и их участие
+                в чемпионатах Европы и мира.
+            </li>
+        </ul>
+    </div>
+</section>
     <!-- Карточки рейтинга игроков России (внутренний рейтинг) -->
     <section id="ratings">
         <h2>Рейтинги игроков</h2>
@@ -1012,10 +1120,11 @@
 
     <!-- Онлайн‑ресурсы -->
     <section id="online">
-        <h2>Отелло в Интернете</h2>
-        <p>Лучшие платформы и программы для игры и анализа.</p>
-        <p>&nbsp;</p>
+    <h2>Отелло в Интернете</h2>
+    <p>Лучшие платформы и программы для игры и анализа.</p>
+    <p>&nbsp;</p>
 
+    <div class="resources-grid">
         <article class="resource-item">
             <img src="images/ftd.jpg" alt="Flip the Disc" class="resource-img">
             <div class="resource-content">
@@ -1033,11 +1142,14 @@
                 <a href="https://play.google.com/store/apps/details?id=fm.wars.reversi" target="_blank" class="btn-link">Скачать с Google Play</a>
             </div>
         </article>
-    </section>
+
+        <!-- дальше можно добавить ещё статьи -->
+    </div>
+</section>
 </main>
 
 <footer>
-    <p>&copy; 2025 Федерация Отелло России. Все права защищены.</p>
+  <p>&copy; 2025 Федерация Отелло России. Все права защищены.</p>
 </footer>
 
 <button id="toTop" aria-label="Наверх">↑</button>
